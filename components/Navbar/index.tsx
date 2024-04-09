@@ -20,9 +20,15 @@ import Logo from "./logo.png";
 export default function Navbar() {
   const [opened, { open, close }] = useDisclosure();
 
+  const scrollTo = (id: string) => {
+    const element = document.getElementById(id);
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   return (
-    <Group className={classes.navbar} wrap="nowrap">
+    <Group className={classes.navbar} justify="space-around" wrap="nowrap">
       <Group gap={5} wrap="nowrap">
         <Image src={Logo} alt="logo" width={50} height={50} />
         <Text
@@ -35,7 +41,9 @@ export default function Navbar() {
         </Text>
       </Group>
       <Group gap="xl" visibleFrom="md" className={classes.menuitems}>
-        <Text fw={500}>Features</Text>
+        <Text fw={500} onClick={() => scrollTo("features")}>
+          Features
+        </Text>
         <Text fw={500}>Tools</Text>
         <Text fw={500}>Changelog</Text>
         <Text fw={500}>Gallery</Text>
