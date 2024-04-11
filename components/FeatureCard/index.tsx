@@ -1,4 +1,5 @@
 import { Card, Stack, Text, ThemeIcon, Title } from "@mantine/core";
+import { useHover } from "@mantine/hooks";
 
 type FeatureCardProps = {
   title: string;
@@ -11,10 +12,15 @@ export default function FeatureCard({
   description,
   title,
 }: FeatureCardProps) {
+  const { hovered, ref } = useHover();
   return (
-    <Card shadow="sm" p="lg" radius={"md"}>
+    <Card shadow="sm" p="lg" radius={"md"} h="100%" ref={ref}>
       <Stack align="center">
-        <ThemeIcon size={"xl"} variant="transparent">
+        <ThemeIcon
+          size={80}
+          variant={hovered ? "filled" : "transparent"}
+          radius={40}
+        >
           {icon}
         </ThemeIcon>
         <Title order={4}>{title}</Title>

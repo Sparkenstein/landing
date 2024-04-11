@@ -63,7 +63,17 @@ export default function Navbar() {
         </Box>
 
         <Button size="sm" visibleFrom="sm">
-          Download
+          <a
+            target="_blank"
+            rel="noreferrer noopener"
+            style={{
+              textDecoration: "none",
+              color: "inherit",
+            }}
+            href="https://github.com/fosslife/devtools-x/releases"
+          >
+            Download
+          </a>
         </Button>
         <ActionIcon variant="transparent" hiddenFrom="md">
           <IconMenu2 onClick={open} />
