@@ -17,19 +17,45 @@ import { IconMenu2, IconMoon, IconSun } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 import Logo from "./logo.png";
 
+const navbarItems = [
+  {
+    id: 1,
+    title: "Features",
+    element: "features",
+  },
+  {
+    id: 2,
+    title: "Showcase",
+    element: "showcase",
+  },
+
+  {
+    id: 3,
+    title: "Gallery",
+  },
+  {
+    id: 4,
+    title: "Changelog",
+  },
+  {
+    id: 5,
+    title: "Contribute",
+  },
+];
+
 export default function Navbar() {
   const [opened, { open, close }] = useDisclosure();
 
   const scrollTo = (id: string) => {
     const element = document.getElementById(id);
     if (!element) return;
-    element.scrollIntoView({ behavior: "smooth", block: "start" });
+    element.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   const { toggleColorScheme, colorScheme } = useMantineColorScheme();
   return (
     <Group className={classes.navbar} justify="space-around" wrap="nowrap">
-      <Group gap={5} wrap="nowrap">
+      <Group gap={5} wrap="nowrap" onClick={() => scrollTo("landing")}>
         <Image src={Logo} alt="logo" width={50} height={50} />
         <Text
           variant="gradient"
@@ -41,13 +67,15 @@ export default function Navbar() {
         </Text>
       </Group>
       <Group gap="xl" visibleFrom="md" className={classes.menuitems}>
-        <Text fw={500} onClick={() => scrollTo("features")}>
-          Features
-        </Text>
-        <Text fw={500}>Tools</Text>
-        <Text fw={500}>Changelog</Text>
-        <Text fw={500}>Gallery</Text>
-        <Text fw={500}>Contribute</Text>
+        {navbarItems.map((i) => (
+          <Text
+            key={i.id}
+            fw={500}
+            onClick={() => scrollTo(i.element as string)}
+          >
+            {i.title}
+          </Text>
+        ))}
       </Group>
       <Group align="center" wrap="nowrap">
         <Box onClick={() => toggleColorScheme()} mt="5">

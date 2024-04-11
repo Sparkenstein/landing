@@ -1,5 +1,7 @@
 "use client";
 
+import classes from "./page.module.css";
+
 import {
   ActionIcon,
   Box,
@@ -98,7 +100,9 @@ export default function HomePage() {
 
   return (
     <Stack>
-      <Group w="100%" justify="center" h="100%">
+      <Group w="100%" justify="center" h="100%" id="landing">
+        <div className={classes.pattern1}></div>
+        <div className={classes.pattern2}></div>
         <Box>
           <Stack gap={55}>
             <Stack>
@@ -173,6 +177,78 @@ export default function HomePage() {
           ))}
         </Grid>
       </Container>
+
+      {/* Showcase */}
+      <Container mb="lg" mt={150}>
+        <Stack gap={160} id="showcase">
+          <Group wrap="nowrap">
+            <Stack>
+              <Text c="brand">Wide range of features</Text>
+              <Title order={3}>More than 35 features</Title>
+              <Text>
+                Devtools-x offers a wide range of features, ranging from code
+                generators to image compressors, code minifiers, and much more
+              </Text>
+            </Stack>
+            <Image
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              src={map[1]}
+              sizes="100vw"
+              alt="Tool 1"
+            ></Image>
+          </Group>
+
+          <Group wrap="nowrap">
+            <Image
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              src={map[1]}
+              sizes="100vw"
+              alt="Tool 1"
+            ></Image>
+            <Stack>
+              <Text c="brand">Minimal interface</Text>
+              <Title order={3}>Developer friendly</Title>
+              <Text>
+                Devtools-x offers a minimal interface, with a wide range of
+                developer tools, ranging from code generators to image
+                compressors
+              </Text>
+            </Stack>
+          </Group>
+
+          <Group wrap="nowrap">
+            <Stack>
+              <Text c="brand">Minimal interface</Text>
+              <Title order={3}>Developer friendly</Title>
+              <Text>
+                Devtools-x offers a minimal interface, with a wide range of
+                developer tools, ranging from code generators to image
+                compressors
+              </Text>
+            </Stack>
+            <Image
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+              }}
+              src={map[2]}
+              sizes="100vw"
+              alt="Tool 1"
+            ></Image>
+          </Group>
+        </Stack>
+      </Container>
+
+      {/* Gallery */}
     </Stack>
   );
 }
