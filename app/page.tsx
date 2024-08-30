@@ -12,9 +12,12 @@ import {
   Stack,
   Text,
   Title,
+  Image,
   rem,
+  Flex,
 } from "@mantine/core";
-import Image from "next/image";
+// import Image from "next/image";
+import NextImage from "next/image";
 import {
   IconBook2,
   IconBrandApple,
@@ -34,6 +37,7 @@ import {
   Image5,
   Image6,
   Image7,
+  Image8,
 } from "../assets";
 import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
@@ -48,6 +52,7 @@ const map = {
   "5": Image5,
   "6": Image6,
   "7": Image7,
+  "8": Image8,
 };
 
 const data = [
@@ -55,7 +60,7 @@ const data = [
     id: 1,
     title: "Multiple modules",
     description:
-      "More than 35+ developer friendly tools, ranging from code generators to image compressors.",
+      "More than 40+ developer friendly tools, ranging from code generators to image compressors.",
     icon: <IconBook2 style={{ width: "70%", height: "70%" }} />,
   },
   {
@@ -100,18 +105,23 @@ export default function HomePage() {
 
   return (
     <Stack>
-      <Group w="100%" justify="center" h="100%" id="landing">
-        <div className={classes.pattern1}></div>
-        <div className={classes.pattern2}></div>
-        <Box>
-          <Stack gap={55}>
+      <div className={classes.pattern1}></div>
+      <div className={classes.pattern2}></div>
+      <Group
+        justify="center"
+        w="100%"
+        mt="lg"
+        px={{ md: "100px", sm: "50px", xs: "20px", base: "20px" }}
+      >
+        <Flex id="landing" direction={{ base: "column", sm: "row" }}>
+          <Stack gap={55} w="100%">
             <Stack>
               <Title c="brand">DEVTOOLS-X</Title>
               <Text size="xl">
                 A large cross-platform, fast, collection of developer utilities
               </Text>
               <Text size="sm" c="dimmed">
-                More than 35+ features, <br />
+                More than 40+ features, <br />
                 Built with Tauri, React, and Rust. Made with ❤️ by the
                 community.
               </Text>
@@ -126,39 +136,35 @@ export default function HomePage() {
               <Text>Watch a video</Text>
             </Group>
           </Stack>
-        </Box>
-        <Box
-          w="50%"
-          h="50%"
-          style={{
-            overflow: "hidden",
-          }}
-        >
-          <Carousel
-            align={"start"}
-            orientation="vertical"
-            slideSize={{ base: "5%", xs: "100%" }}
-            height={700}
-            dragFree
-            withControls={false}
-            loop
-            plugins={[autoplay.current]}
-          >
-            {Object.keys(map).map((key) => (
-              <Carousel.Slide key={key}>
-                <Image
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                  }}
-                  src={map[key as keyof typeof map]}
-                  sizes="100vw"
-                  alt="Banner"
-                />
-              </Carousel.Slide>
-            ))}
-          </Carousel>
-        </Box>
+          <Box>
+            <Carousel
+              orientation={"horizontal"}
+              slideSize={"100%"}
+              height={500}
+              align={"start"}
+              loop
+              dragFree
+              draggable
+              withControls={false}
+              plugins={[autoplay.current]}
+            >
+              {Object.keys(map).map((key) => (
+                <Carousel.Slide key={key}>
+                  <Image
+                    src={map[key as keyof typeof map]}
+                    component={NextImage}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                    }}
+                    alt="Banner"
+                  />
+                </Carousel.Slide>
+              ))}
+            </Carousel>
+          </Box>
+        </Flex>
       </Group>
       {/* Features Card */}
       <Container mb="lg" mt={50} id="features">
@@ -181,69 +187,76 @@ export default function HomePage() {
       {/* Showcase */}
       <Container mb="lg" mt={150}>
         <Stack gap={160} id="showcase">
-          <Group wrap="nowrap">
+          <Group wrap="nowrap" grow>
             <Stack>
-              <Text c="brand">Wide range of features</Text>
-              <Title order={3}>More than 35 features</Title>
+              <Text c="brand" size="lg">
+                Wide range of features
+              </Text>
+              <Title order={3}>More than 40 features</Title>
               <Text>
                 Devtools-x offers a wide range of features, ranging from code
                 generators to image compressors, code minifiers, and much more
               </Text>
             </Stack>
-            <Image
+            <NextImage
               style={{
-                width: "100%",
+                width: "50%",
                 height: "auto",
-                objectFit: "cover",
+                objectFit: "contain",
               }}
+              // component={NextImage}
               src={map[1]}
-              sizes="100vw"
               alt="Tool 1"
-            ></Image>
+            ></NextImage>
           </Group>
 
-          <Group wrap="nowrap">
-            <Image
+          <Group wrap="nowrap" grow>
+            <NextImage
               style={{
-                width: "100%",
+                width: "50%",
                 height: "auto",
                 objectFit: "cover",
               }}
-              src={map[1]}
+              // component={NextImage}
+              src={map[4]}
               sizes="100vw"
               alt="Tool 1"
-            ></Image>
+            ></NextImage>
             <Stack>
-              <Text c="brand">Minimal interface</Text>
+              <Text c="brand" size="lg">
+                Minimal interface
+              </Text>
               <Title order={3}>Developer friendly</Title>
               <Text>
-                Devtools-x offers a minimal interface, with a wide range of
-                developer tools, ranging from code generators to image
-                compressors
+                DevTools-X is built with a minimal interface, keeping developer
+                first approach in mind, you can use the entire tool with just a
+                keyboard, avoiding touching mouse as much as possible
               </Text>
             </Stack>
           </Group>
 
-          <Group wrap="nowrap">
+          <Group wrap="nowrap" grow>
             <Stack>
-              <Text c="brand">Minimal interface</Text>
-              <Title order={3}>Developer friendly</Title>
+              <Text c="brand" size="lg">
+                Customizable
+              </Text>
+              <Title order={3}>Configuration and settings</Title>
               <Text>
-                Devtools-x offers a minimal interface, with a wide range of
-                developer tools, ranging from code generators to image
-                compressors
+                Devtools-x offers a wide range of customization options, ranging
+                from themes to settings, you can customize the entire app to fit
+                your needs.
               </Text>
             </Stack>
-            <Image
+            <NextImage
               style={{
-                width: "100%",
+                width: "50%",
                 height: "auto",
                 objectFit: "cover",
               }}
-              src={map[2]}
+              src={map[7]}
               sizes="100vw"
               alt="Tool 1"
-            ></Image>
+            ></NextImage>
           </Group>
         </Stack>
       </Container>

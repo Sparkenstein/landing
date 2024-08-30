@@ -14,17 +14,17 @@ export default function FeatureCard({
 }: FeatureCardProps) {
   const { hovered, ref } = useHover();
   return (
-    <Card shadow="sm" p="lg" radius={"md"} h="100%" ref={ref}>
+    <Card shadow="sm" p="lg" radius={"md"} withBorder h="100%" ref={ref}>
       <Stack align="center">
         <ThemeIcon
           size={80}
-          variant={hovered ? "filled" : "transparent"}
+          variant={hovered ? "filled" : "outline"}
           radius={40}
         >
           {icon}
         </ThemeIcon>
         <Title order={4}>{title}</Title>
-        <Text ta="center" size="xs" c="dimmed">
+        <Text ta="center" size="xs">
           {description}
         </Text>
       </Stack>
