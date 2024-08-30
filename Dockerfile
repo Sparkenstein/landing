@@ -1,28 +1,39 @@
-FROM node:alpine as builder
+# Build stage
+FROM node:22-alpine AS base
 
-# Set the working directory
+
+ENV NODE_ENV=production
+
+ENV NEXT_TELEMETRY_DISABLED=1
+
+
 WORKDIR /app
 
-# Copy the package.json file
-COPY package.json .
+# Copy package.json and package-lock.json
+COPY package.json ./
 
-COPY yarn.lock .
+COPY yarn.lock ./
 
-# Install the dependencies
-RUN yarn
+RUN corepack enable
 
-# Copy the source code
+
+# Copy the rest of the application code
 COPY . .
 
+# Install dependencies
+RUN yarn install
 
-# Build the application
-RUN npm run build
-
-# Build the production image
+# Build the Next.js app
+RUN yarn build
 
 
+FROM nginx:alpine
 
-FROM nginx:alpine-slim
+# Copy the build output to replace the default nginx contents.
+COPY --from=base /app/out/ /usr/share/nginx/html
 
-# Copy the build files
-COPY --from=builder /app/out /usr/share/nginx/html
+# Expose the port the app runs on
+EXPOSE 80
+
+# Serve the app
+CMD ["nginx", "-g", "daemon off;"]
