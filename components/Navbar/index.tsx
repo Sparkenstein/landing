@@ -8,7 +8,6 @@ import {
   Group,
   Stack,
   Text,
-  Title,
   useMantineColorScheme,
 } from "@mantine/core";
 import Image from "next/image";
@@ -27,19 +26,6 @@ const navbarItems = [
     id: 2,
     title: "Showcase",
     element: "showcase",
-  },
-
-  {
-    id: 3,
-    title: "Gallery",
-  },
-  {
-    id: 4,
-    title: "Changelog",
-  },
-  {
-    id: 5,
-    title: "Contribute",
   },
 ];
 
@@ -76,6 +62,31 @@ export default function Navbar() {
             {i.title}
           </Text>
         ))}
+        <Text
+          fw={500}
+          component={"a"}
+          href="https://github.com/fosslife/devtools-x/blob/master/features.md"
+          target="_blank"
+        >
+          Gallery
+        </Text>
+        <Text
+          fw={500}
+          component={"a"}
+          href="https://github.com/fosslife/devtools-x/blob/master/CHANGELOG.md"
+          target="_blank"
+        >
+          Changelog
+        </Text>
+        <Text
+          fw={500}
+          component={"a"}
+          href="https://github.com/fosslife/devtools-x"
+          target="_blank"
+          ta={"center"}
+        >
+          Leave a star
+        </Text>
       </Group>
       <Group align="center" wrap="nowrap">
         <Box onClick={() => toggleColorScheme()} mt="5">

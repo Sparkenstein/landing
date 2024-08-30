@@ -15,18 +15,25 @@ import {
   Image,
   rem,
   Flex,
+  Paper,
 } from "@mantine/core";
 // import Image from "next/image";
 import NextImage from "next/image";
 import {
+  IconAdjustmentsHeart,
   IconBook2,
   IconBrandApple,
   IconBrandGithub,
+  IconBrandReact,
   IconCloudStorm,
+  IconCross,
+  IconCrossOff,
   IconDownload,
   IconFeather,
+  IconLock,
   IconPencil,
   IconPlayerPlay,
+  IconX,
 } from "@tabler/icons-react";
 
 import {
@@ -41,8 +48,11 @@ import {
 } from "../assets";
 import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
+import AutoHeight from "embla-carousel-auto-height";
 import { Carousel } from "@mantine/carousel";
-import FeatureCard from "../components/FeatureCard";
+import FeatureCards from "./components/FeatureCards";
+import Showcase from "./components/Showcase";
+import { useRouter } from "next/navigation";
 
 const map = {
   "1": Image1,
@@ -55,53 +65,10 @@ const map = {
   "8": Image8,
 };
 
-const data = [
-  {
-    id: 1,
-    title: "Multiple modules",
-    description:
-      "More than 40+ developer friendly tools, ranging from code generators to image compressors.",
-    icon: <IconBook2 style={{ width: "70%", height: "70%" }} />,
-  },
-  {
-    id: 2,
-    title: "Lightweight",
-    description:
-      "App size is less than 10MB, and it's super fast and responsive.",
-    icon: <IconFeather style={{ width: "70%", height: "70%" }} />,
-  },
-  {
-    id: 3,
-    title: "customization",
-    description:
-      "Most features offer a wide range of customization options to suit your needs.",
-    icon: <IconPencil style={{ width: "70%", height: "70%" }} />,
-  },
-  {
-    id: 4,
-    title: "Fast and responsive",
-    description:
-      "Built with Tauri, React, and Rust, the app is super fast and responsive.",
-    icon: <IconCloudStorm style={{ width: "70%", height: "70%" }} />,
-  },
-  {
-    id: 5,
-    title: "Cross platform",
-    description:
-      "Same ui, across all platforms, supports same settings. all thanks to Rust + Tauri",
-    icon: <IconBrandApple style={{ width: "70%", height: "70%" }} />,
-  },
-  {
-    id: 6,
-    title: "Community",
-    description:
-      "Devtools-x is open-source and free since day one. Feel free to explore the codebase or contribute.",
-    icon: <IconBrandGithub style={{ width: "70%", height: "70%" }} />,
-  },
-];
-
 export default function HomePage() {
   const autoplay = useRef(Autoplay({ delay: 2000 }));
+  const autoHeight = useRef(AutoHeight());
+  const { push } = useRouter();
 
   return (
     <Stack>
@@ -111,13 +78,18 @@ export default function HomePage() {
         justify="center"
         w="100%"
         mt="lg"
-        px={{ md: "100px", sm: "50px", xs: "20px", base: "20px" }}
+        px={{ md: "200px", sm: "50px", xs: "20px", base: "20px" }}
       >
-        <Flex id="landing" direction={{ base: "column", sm: "row" }}>
-          <Stack gap={55} w="100%">
-            <Stack>
+        <Flex
+          id="landing"
+          direction={{ base: "column", sm: "row" }}
+          justify={"space-between"}
+          gap={50}
+        >
+          <Stack justify="space-evenly" gap={55} w="100%">
+            <Stack gap={20}>
               <Title c="brand">DEVTOOLS-X</Title>
-              <Text size="xl">
+              <Text size="lg">
                 A large cross-platform, fast, collection of developer utilities
               </Text>
               <Text size="sm" c="dimmed">
@@ -126,8 +98,16 @@ export default function HomePage() {
                 community.
               </Text>
             </Stack>
-            <Group>
-              <Button size="lg" rightSection={<IconDownload />}>
+            <Group wrap="nowrap">
+              <Button
+                size="lg"
+                rightSection={<IconDownload />}
+                onClick={() =>
+                  push(
+                    "https://github.com/fosslife/devtools-x/releases/tag/devtoolsx-v2.15.0"
+                  )
+                }
+              >
                 Download now
               </Button>
               <ActionIcon radius={"xl"} size={50} variant="outline">
@@ -140,13 +120,15 @@ export default function HomePage() {
             <Carousel
               orientation={"horizontal"}
               slideSize={"100%"}
-              height={500}
+              slideGap={10}
+              height={600}
+              w={"100%"}
               align={"start"}
               loop
-              dragFree
+              // dragFree
               draggable
               withControls={false}
-              plugins={[autoplay.current]}
+              plugins={[autoHeight.current, autoplay.current]}
             >
               {Object.keys(map).map((key) => (
                 <Carousel.Slide key={key}>
@@ -167,101 +149,42 @@ export default function HomePage() {
         </Flex>
       </Group>
       {/* Features Card */}
-      <Container mb="lg" mt={50} id="features">
-        <Grid gutter={40}>
-          {data.map((item) => (
-            <Grid.Col
-              key={item.id}
-              span={{
-                xs: 12,
-                sm: 6,
-                md: 4,
-              }}
-            >
-              <FeatureCard {...item} />
-            </Grid.Col>
-          ))}
-        </Grid>
-      </Container>
+      <FeatureCards />
 
       {/* Showcase */}
-      <Container mb="lg" mt={150}>
-        <Stack gap={160} id="showcase">
-          <Group wrap="nowrap" grow>
-            <Stack>
-              <Text c="brand" size="lg">
-                Wide range of features
-              </Text>
-              <Title order={3}>More than 40 features</Title>
-              <Text>
-                Devtools-x offers a wide range of features, ranging from code
-                generators to image compressors, code minifiers, and much more
-              </Text>
-            </Stack>
-            <NextImage
-              style={{
-                width: "50%",
-                height: "auto",
-                objectFit: "contain",
-              }}
-              // component={NextImage}
-              src={map[1]}
-              alt="Tool 1"
-            ></NextImage>
-          </Group>
+      <Showcase />
 
-          <Group wrap="nowrap" grow>
-            <NextImage
-              style={{
-                width: "50%",
-                height: "auto",
-                objectFit: "cover",
-              }}
-              // component={NextImage}
-              src={map[4]}
-              sizes="100vw"
-              alt="Tool 1"
-            ></NextImage>
-            <Stack>
-              <Text c="brand" size="lg">
-                Minimal interface
+      {/* Tecj */}
+      <Container size={"xl"} mb="lg" mt={150}>
+        <Paper withBorder radius={"lg"} p="xl" shadow="xl">
+          <Group justify="space-between" grow>
+            <Stack align="center">
+              <IconLock />
+              <Text size="xl">Rust</Text>
+              <Text ta="center" size="sm">
+                DevTools-X is backed by Rust doing all the heavy lifting like
+                calculating hash or minifying code
               </Text>
-              <Title order={3}>Developer friendly</Title>
-              <Text>
-                DevTools-X is built with a minimal interface, keeping developer
-                first approach in mind, you can use the entire tool with just a
-                keyboard, avoiding touching mouse as much as possible
+            </Stack>
+            <Stack align="center">
+              <IconAdjustmentsHeart />
+              <Text size="xl">Tauri</Text>
+              <Text ta="center" size="sm">
+                DevTools-X is written in tauri, which is a framework for
+                building safe desktop without sacrificing performance or size
+              </Text>
+            </Stack>
+            <Stack align="center">
+              <IconBrandReact />
+              <Text size="xl">React</Text>
+              <Text ta="center" size="sm">
+                DevTools-X is built with React, which is a popular library for
+                building user interfaces
               </Text>
             </Stack>
           </Group>
-
-          <Group wrap="nowrap" grow>
-            <Stack>
-              <Text c="brand" size="lg">
-                Customizable
-              </Text>
-              <Title order={3}>Configuration and settings</Title>
-              <Text>
-                Devtools-x offers a wide range of customization options, ranging
-                from themes to settings, you can customize the entire app to fit
-                your needs.
-              </Text>
-            </Stack>
-            <NextImage
-              style={{
-                width: "50%",
-                height: "auto",
-                objectFit: "cover",
-              }}
-              src={map[7]}
-              sizes="100vw"
-              alt="Tool 1"
-            ></NextImage>
-          </Group>
-        </Stack>
+        </Paper>
       </Container>
-
-      {/* Gallery */}
     </Stack>
   );
 }

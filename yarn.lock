@@ -1190,6 +1190,7 @@ __metadata:
     "@types/node": "npm:20.11.26"
     "@types/react": "npm:18.2.65"
     "@types/react-dom": "npm:18.2.21"
+    embla-carousel-auto-height: "npm:^8.2.0"
     embla-carousel-autoplay: "npm:^7.1.0"
     embla-carousel-react: "npm:^7.1.0"
     eslint: "npm:8.57.0"
@@ -1236,6 +1237,15 @@ __metadata:
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
   checksum: 10c0/26f364ebcdb6395f95124fda411f63137a4bfb5d3a06453f7f23dfe52502905bd84e0488172e0f9ec295fdc45f05c23d5d91baf16bd26f0fe9acd777a188dc39
+  languageName: node
+  linkType: hard
+
+"embla-carousel-auto-height@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "embla-carousel-auto-height@npm:8.2.0"
+  peerDependencies:
+    embla-carousel: 8.2.0
+  checksum: 10c0/539a84ba8d5b2c9fe5a95c20c131b2a6ddb6c12b9ff03a3ff506e3a4f43d4470c0cfa14787d2b5bee1c3b9d1c488d90e1391045f13a23a7a2a236db4598ac556
   languageName: node
   linkType: hard
 
